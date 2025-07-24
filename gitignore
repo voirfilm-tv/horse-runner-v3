@@ -1,0 +1,14 @@
+# Node modules & output
+node_modules/
+dist/
+.vite/
+
+# Supabase local folder
+.supabase/
+
+# Environment secrets
+.env
+
+# System files
+.DS_Store
+Thumbs.db

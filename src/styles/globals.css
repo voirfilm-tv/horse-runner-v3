@@ -1,0 +1,10 @@
+@import './theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Personnalisations globales */
+body {
+  @apply font-sans bg-gray-50 text-gray-800;
+}

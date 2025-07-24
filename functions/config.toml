@@ -1,0 +1,14 @@
+[functions]
+  verify_jwt = false
+
+[[functions.routes]]
+  path = "/dailyBonus"
+  method = "GET"
+
+[[functions.routes]]
+  path = "/validateGame"
+  method = "POST"
+
+[[functions.routes]]
+  path = "/handleCapture"
+  method = "POST"
