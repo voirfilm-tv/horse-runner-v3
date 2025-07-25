@@ -14,10 +14,10 @@ export default function Login() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      console.log('🔄 Redirection automatique vers / car déjà connecté');
-      navigate('/');
+      console.log('🔄 Redirection car connecté');
+      navigate('/', { replace: true });
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ export default function Login() {
       localStorage.setItem('pseudo', pseudo);
       setSuccess('Connexion réussie, redirection...');
       console.log('✅ Connexion réussie pour', pseudo);
-      setTimeout(() => window.location.href = '/', 1000);
+      setTimeout(() => navigate('/', { replace: true }), 1000);
     } catch (err) {
       console.error('Erreur login:', err);
       setError('Une erreur est survenue.');
