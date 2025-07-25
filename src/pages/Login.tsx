@@ -8,20 +8,27 @@ export default function Login() {
   const [pseudo, setPseudo] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
+
+    if (!pseudo || !password) {
+      setError('Veuillez remplir tous les champs.');
+      return;
+    }
 
     try {
-      const { data: user } = await supabase
+      const { data: user, error: fetchError } = await supabase
         .from('users')
         .select('id, password_hash')
         .eq('pseudo', pseudo)
         .single();
 
-      if (!user) {
+      if (fetchError || !user) {
         setError('Pseudo ou mot de passe incorrect.');
         return;
       }
@@ -34,9 +41,11 @@ export default function Login() {
 
       localStorage.setItem('userId', user.id);
       localStorage.setItem('pseudo', pseudo);
-      navigate('/');
+      setSuccess('Connexion réussie, redirection...');
+      console.log('✅ Connexion réussie pour', pseudo);
+      setTimeout(() => navigate('/'), 1000);
     } catch (err) {
-      console.error(err);
+      console.error('Erreur login:', err);
       setError('Une erreur est survenue.');
     }
   };
@@ -45,6 +54,7 @@ export default function Login() {
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
       <h1 className="text-2xl font-bold mb-4 text-center text-green-700">Connexion</h1>
       {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+      {success && <p className="text-green-600 text-sm mb-4">{success}</p>}
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
           <label className="block mb-1 font-medium">Pseudo</label>
