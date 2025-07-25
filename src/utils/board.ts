@@ -1,4 +1,20 @@
-export { boardLayout } from './board';
+export const boardLayout: string[][] = [
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'path', 'start-blue', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'safe', 'path', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'path', 'path', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'path', 'path', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'path', 'path', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'base-red', 'path', 'path', 'path', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green', 'base-green'],
+  ['path', 'path', 'path', 'path', 'path', 'path', 'home', 'home', 'home', 'path', 'path', 'path', 'path', 'safe', 'path'],
+  ['start-red', 'path', 'path', 'path', 'path', 'path', 'home', 'home', 'home', 'path', 'path', 'path', 'path', 'path', 'start-green'],
+  ['path', 'safe', 'path', 'path', 'path', 'path', 'home', 'home', 'home', 'path', 'path', 'path', 'path', 'path', 'path'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'path', 'path', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'path', 'path', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'path', 'path', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'path', 'path', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'path', 'safe', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow'],
+  ['base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'base-blue', 'path', 'start-yellow', 'path', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow', 'base-yellow']
+];
 
 export interface Coord {
   x: number;
@@ -51,7 +67,6 @@ export function getCapturedPawn(
 }
 
 
-import type { Coord } from './board';
 
 /**
  * Détermine si les 4 pions d’un joueur sont tous dans la case d’arrivée (home)
