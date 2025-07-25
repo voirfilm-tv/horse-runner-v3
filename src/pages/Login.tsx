@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
@@ -14,14 +15,13 @@ export default function Login() {
     setError('');
 
     try {
-      // Récupérer l'utilisateur avec ce pseudo
-      const { data: user, error: fetchError } = await supabase
+      const { data: user } = await supabase
         .from('users')
         .select('id, password_hash')
         .eq('pseudo', pseudo)
         .single();
 
-      if (fetchError || !user) {
+      if (!user) {
         setError('Pseudo ou mot de passe incorrect.');
         return;
       }
@@ -32,10 +32,8 @@ export default function Login() {
         return;
       }
 
-      // Stocker les infos de session (id utilisateur ou pseudo)
       localStorage.setItem('userId', user.id);
       localStorage.setItem('pseudo', pseudo);
-
       navigate('/');
     } catch (err) {
       console.error(err);
@@ -75,6 +73,12 @@ export default function Login() {
           Se connecter
         </button>
       </form>
+      <p className="text-sm text-center mt-4">
+        Pas encore de compte ?{' '}
+        <a href="/register" className="text-green-700 underline hover:text-green-800">
+          Créer un compte
+        </a>
+      </p>
     </div>
   );
 }

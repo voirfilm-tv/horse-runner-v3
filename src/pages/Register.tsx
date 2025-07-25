@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
@@ -19,8 +20,7 @@ export default function Register() {
     }
 
     try {
-      // Vérifier si le pseudo existe déjà
-      const { data: existingUser, error: checkError } = await supabase
+      const { data: existingUser } = await supabase
         .from('users')
         .select('id')
         .eq('pseudo', pseudo)
@@ -31,15 +31,13 @@ export default function Register() {
         return;
       }
 
-      // Hasher le mot de passe
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Insérer le nouvel utilisateur
       const { error: insertError } = await supabase.from('users').insert([
         {
           pseudo,
           password_hash: hashedPassword,
-          coin: 500,
+          coins: 500,
           last_bonus: new Date().toISOString()
         }
       ]);
@@ -50,7 +48,6 @@ export default function Register() {
         return;
       }
 
-      // Rediriger vers la connexion
       navigate('/login');
     } catch (err) {
       console.error(err);
@@ -90,6 +87,12 @@ export default function Register() {
           Créer mon compte
         </button>
       </form>
+      <p className="text-sm text-center mt-4">
+        Déjà un compte ?{' '}
+        <a href="/login" className="text-green-700 underline hover:text-green-800">
+          Se connecter
+        </a>
+      </p>
     </div>
   );
 }
