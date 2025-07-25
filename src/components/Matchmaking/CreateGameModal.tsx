@@ -38,13 +38,13 @@ export default function CreateGameModal() {
           <label className="block text-sm font-medium text-gray-700 mb-1">Mode de jeu</label>
           <div className="flex gap-4">
             <button
-              className={\`px-4 py-2 rounded-lg font-semibold border \${mode === 'realtime' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-800'}\`}
+              className={`px-4 py-2 rounded-lg font-semibold border ${mode === 'realtime' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-800'}`}
               onClick={() => setMode('realtime')}
             >
               ⏱ Temps réel
             </button>
             <button
-              className={\`px-4 py-2 rounded-lg font-semibold border \${mode === 'async' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-800'}\`}
+              className={`px-4 py-2 rounded-lg font-semibold border ${mode === 'async' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-800'}`}
               onClick={() => setMode('async')}
             >
               🕓 Asynchrone

@@ -18,7 +18,7 @@ export default function CoinDisplay() {
     <div className="fixed top-4 right-4 z-50 bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-2 rounded-xl shadow-md flex items-center gap-2">
       <span className="text-sm font-medium">👤 {pseudo}</span>
       <span
-        className={\`text-sm font-semibold transition-all duration-500 \${animate ? 'scale-125 text-green-600' : ''}\`}
+        className={`text-sm font-semibold transition-all duration-500 ${animate ? 'scale-125 text-green-600' : ''}`}
       >
         🪙 {coins} coins
       </span>

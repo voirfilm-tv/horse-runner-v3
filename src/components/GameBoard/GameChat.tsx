@@ -69,7 +69,7 @@ export default function GameChat() {
       <div className="flex items-center gap-2 mb-3">
         <img src="/assets/icons/chat.png" alt="Chat" className="w-5 h-5" />
         <h2 className="text-lg font-semibold text-gray-700">💬 Chat de la partie</h2>
-      </div>💬 Chat de la partie</h2>
+      </div>
       <div className="max-h-64 overflow-y-auto space-y-2 mb-3 text-sm text-gray-800">
         {messages.map((msg) => (
           <div key={msg.id}>
