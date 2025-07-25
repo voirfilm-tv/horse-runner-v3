@@ -1,64 +1,56 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import CoinDisplay from '../components/CoinDisplay/CoinDisplay';
 
-export default function Home() {
-  const [pseudo, setPseudo] = useState('');
-  const [coins, setCoins] = useState<number | null>(null);
+const Home: React.FC = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedPseudo = localStorage.getItem('pseudo');
-    const storedCoins = localStorage.getItem('coins');
-
-    if (!storedPseudo || !storedCoins) {
-      navigate('/login');
-    } else {
-      setPseudo(storedPseudo);
-      setCoins(Number(storedCoins));
-    }
-  }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate('/login');
-  };
+  const pseudo = localStorage.getItem('pseudo');
+  const coins = localStorage.getItem('coins');
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: `url('/assets/images/background-bg.png')` }}
+      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center text-white px-4"
+      style={{
+        backgroundImage: `url('/src/assets/images/ui/background.jpg')`,
+      }}
     >
-      <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex flex-col items-center justify-center p-6">
-        <h1 className="text-4xl font-bold text-green-700 mb-6 text-center">
-          Bienvenue sur Horse runner 🐴
-        </h1>
+      <div className="bg-black/60 p-8 rounded-xl shadow-xl max-w-lg w-full text-center space-y-6">
+        <h1 className="text-4xl font-bold text-yellow-300 drop-shadow">Bienvenue sur Petits Chevaux Battle</h1>
 
-        <div className="bg-white shadow-xl rounded-xl p-6 w-full max-w-md text-center space-y-4">
-          <p className="text-lg">👤 <strong>{pseudo}</strong></p>
-          <p className="text-lg">🪙 <strong>{coins}</strong> coins</p>
+        <p className="text-lg text-gray-100">
+          {pseudo ? `👋 Salut ${pseudo}, prêt à jouer ?` : 'Connecte-toi pour commencer !'}
+        </p>
 
+        <CoinDisplay />
+
+        <div className="flex flex-col gap-4">
           <button
-            onClick={() => navigate('/create')}
-            className="w-full py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            onClick={() => navigate('/creer')}
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-xl transition-all"
           >
             🎮 Créer une partie
           </button>
 
           <button
-            onClick={() => navigate('/join')}
-            className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            onClick={() => navigate('/lobby')}
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-xl transition-all"
           >
-            🔗 Rejoindre une partie
+            🔍 Rejoindre une partie
           </button>
 
           <button
-            onClick={handleLogout}
-            className="w-full py-2 bg-red-400 text-white rounded-lg hover:bg-red-500"
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = '/login';
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-xl transition-all"
           >
-            🚪 Se déconnecter
+            🔒 Se déconnecter
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Home;
