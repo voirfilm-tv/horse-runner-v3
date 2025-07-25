@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import GameBoard from './pages/GameBoard';
+import GameBoard from './components/GameBoard/GameBoard';
 import { useEffect, useState } from 'react';
 
 function App() {
