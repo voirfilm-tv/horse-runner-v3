@@ -10,8 +10,9 @@ export default function PlayerList() {
         {players.map((player, index) => (
           <li
             key={player.id}
-            className={\`flex justify-between items-center px-3 py-2 rounded-lg
-              \${index === currentTurn ? 'bg-green-100 font-bold text-green-700' : 'bg-gray-50'}\`}
+            className={`flex justify-between items-center px-3 py-2 rounded-lg ${
+              index === currentTurn ? 'bg-green-100 font-bold text-green-700' : 'bg-gray-50'
+            }`}
           >
             <span>
               {player.pseudo} ({player.color})
