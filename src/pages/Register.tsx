@@ -1,82 +1,95 @@
 import { useState } from 'react';
-import { register } from '@/services/auth';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
+import bcrypt from 'bcryptjs';
 
 export default function Register() {
   const [pseudo, setPseudo] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
-    setLoading(true);
+
+    if (!pseudo || !password) {
+      setError('Pseudo et mot de passe requis.');
+      return;
+    }
+
     try {
-      await register(pseudo, password);
-      setSuccess('Compte créé avec succès ! Redirection...');
-      setTimeout(() => navigate('/login'), 2000);
-    } catch (err: any) {
-      setError(err.message || 'Une erreur est survenue.');
-    } finally {
-      setLoading(false);
+      // Vérifier si le pseudo existe déjà
+      const { data: existingUser, error: checkError } = await supabase
+        .from('users')
+        .select('id')
+        .eq('pseudo', pseudo)
+        .single();
+
+      if (existingUser) {
+        setError('Ce pseudo est déjà pris.');
+        return;
+      }
+
+      // Hasher le mot de passe
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Insérer le nouvel utilisateur
+      const { error: insertError } = await supabase.from('users').insert([
+        {
+          pseudo,
+          password_hash: hashedPassword,
+          coin: 500,
+          last_bonus: new Date().toISOString()
+        }
+      ]);
+
+      if (insertError) {
+        setError('Erreur lors de la création du compte.');
+        console.error(insertError);
+        return;
+      }
+
+      // Rediriger vers la connexion
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+      setError('Une erreur est survenue.');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-200 to-blue-200 px-4">
-      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border border-gray-200">
-        <h2 className="text-3xl font-extrabold text-center text-green-700 mb-6">
-          Créer un compte
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="pseudo" className="block text-sm font-medium text-gray-700">Pseudo</label>
-            <input
-              type="text"
-              id="pseudo"
-              value={pseudo}
-              onChange={(e) => setPseudo(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 px-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition duration-300"
-          >
-            {loading ? 'Création...' : 'Créer mon compte'}
-          </button>
-        </form>
-
-        {error && (
-          <p className="mt-4 text-sm text-red-600 text-center">{error}</p>
-        )}
-        {success && (
-          <p className="mt-4 text-sm text-green-600 text-center">{success}</p>
-        )}
-
-        <p className="mt-6 text-center text-sm text-gray-500">
-          Déjà un compte ? <a href="/login" className="text-green-600 hover:underline">Connecte-toi ici</a>
-        </p>
-      </div>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
+      <h1 className="text-2xl font-bold mb-4 text-center text-green-700">Créer un compte</h1>
+      {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+      <form onSubmit={handleRegister} className="space-y-4">
+        <div>
+          <label className="block mb-1 font-medium">Pseudo</label>
+          <input
+            type="text"
+            value={pseudo}
+            onChange={(e) => setPseudo(e.target.value)}
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          />
+        </div>
+        <div>
+          <label className="block mb-1 font-medium">Mot de passe</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md transition"
+        >
+          Créer mon compte
+        </button>
+      </form>
     </div>
   );
 }
