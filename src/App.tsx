@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import GameBoard from './components/GameBoard/GameBoard';
+import CreateGame from './pages/CreateGame';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/creer" element={<CreateGame />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
