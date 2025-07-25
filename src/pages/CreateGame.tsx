@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateGameModal from '../components/Modals/CreateGameModal';
+import CreateGameModal from '../components/Matchmaking/CreateGameModal';
 
 const CreateGame: React.FC = () => {
   return (
