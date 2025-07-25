@@ -9,7 +9,7 @@ export default function GameBoard() {
       <div className="aspect-square grid grid-cols-15 grid-rows-15 gap-[1px] bg-black rounded-xl overflow-hidden shadow-xl">
         {boardLayout.map((row, rowIndex) =>
           row.map((cell, colIndex) => {
-            const key = \`\${rowIndex}-\${colIndex}\`;
+            const key = `${rowIndex}-${colIndex}`;
             const bg =
               cell === 'start-red' ? 'bg-red-400' :
               cell === 'start-blue' ? 'bg-blue-400' :
