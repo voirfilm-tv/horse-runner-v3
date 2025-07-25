@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt-ts';
 
 export default function Login() {
   const [pseudo, setPseudo] = useState('');
