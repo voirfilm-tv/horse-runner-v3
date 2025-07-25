@@ -43,7 +43,7 @@ export default function Login() {
       localStorage.setItem('pseudo', pseudo);
       setSuccess('Connexion réussie, redirection...');
       console.log('✅ Connexion réussie pour', pseudo);
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => window.location.href = '/', 1000);
     } catch (err) {
       console.error('Erreur login:', err);
       setError('Une erreur est survenue.');
