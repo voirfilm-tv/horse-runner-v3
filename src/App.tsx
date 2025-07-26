@@ -23,6 +23,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/creer" element={<CreateGame />} />
+        <Route path="/create" element={<CreateGame />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
