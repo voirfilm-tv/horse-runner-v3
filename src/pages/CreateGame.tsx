@@ -83,26 +83,25 @@ const CreateGame = () => {
 
         <div className="mb-4">
           <label className="block mb-1 text-sm font-medium text-gray-700">Mode de jeu</label>
-          <div className="flex gap-4">
-            <button
-  onClick={() => setMode('realtime')}
-  className={`px-3 py-1 rounded-full text-sm border ${
-    mode === 'realtime' ? 'bg-green-600 text-white' : 'bg-white text-gray-700'
-  }`}
->
-  ⏱ Temps réel
-</button>
+<div className="flex gap-4">
+  <button
+    onClick={() => setMode('realtime')}
+    className={`px-3 py-1 rounded-full text-sm border ${
+      mode === 'realtime' ? 'bg-green-600 text-white' : 'bg-white text-gray-700'
+    }`}
+  >
+    ⏱ Temps réel
+  </button>
+  <button
+    onClick={() => setMode('async')}
+    className={`px-3 py-1 rounded-full text-sm border ${
+      mode === 'async' ? 'bg-green-600 text-white' : 'bg-white text-gray-700'
+    }`}
+  >
+    🕓 Asynchrone
+  </button>
+</div>
 
-<button
-  onClick={() => setMode('async')}
-  className={`px-3 py-1 rounded-full text-sm border ${
-    mode === 'async' ? 'bg-green-600 text-white' : 'bg-white text-gray-700'
-  }`}
->
-  🕓 Asynchrone
-</button>
-
-          </div>
         </div>
 
         <div className="mb-4">
