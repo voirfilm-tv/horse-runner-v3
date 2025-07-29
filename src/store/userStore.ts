@@ -1,19 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from '../lib/supabase';import { create } from 'zustand';
-
-interface UserStore {
-  pseudo: string;
-  coins: number;
-  setPseudo: (pseudo: string) => void;
-  setCoins: (coins: number) => void;
-}
-
-export const useUserStore = create<UserStore>((set) => ({
-  pseudo: '',
-  coins: 0,
-  setPseudo: (pseudo) => set({ pseudo }),
-  setCoins: (coins) => set({ coins }),
-}));
+import { supabase } from '../lib/supabase';
 
 type UserState = {
   userId: string | null;
@@ -22,6 +8,7 @@ type UserState = {
   setUser: (userId: string, pseudo: string) => Promise<void>;
   fetchCoins: () => Promise<void>;
   setCoins: (coins: number) => Promise<void>;
+  updateCoins: () => Promise<void>;
   resetUser: () => void;
 };
 
@@ -77,21 +64,21 @@ export const useUserStore = create<UserState>((set, get) => ({
       console.error('Erreur mise à jour coins :', error);
     }
   },
-  
-updateCoins: async () => {
-  const { userId } = get();
-  if (!userId) return;
 
-  const { data, error } = await supabase
-    .from('users')
-    .select('coins')
-    .eq('id', userId)
-    .single();
+  updateCoins: async () => {
+    const { userId } = get();
+    if (!userId) return;
 
-  if (!error && data) {
-    set({ coins: data.coins });
-  }
-},
+    const { data, error } = await supabase
+      .from('users')
+      .select('coins')
+      .eq('id', userId)
+      .single();
+
+    if (!error && data) {
+      set({ coins: data.coins });
+    }
+  },
 
   resetUser: () => {
     localStorage.removeItem('userId');
