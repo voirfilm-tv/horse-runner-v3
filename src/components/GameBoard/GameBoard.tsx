@@ -47,8 +47,8 @@ export default function GameBoard() {
                 {pawn && (
                   <>
                     <img
-                      src={`/assets/images/pawns/pawn-\${pawn.playerColor}.png`}
-                      alt={\`Pion \${pawn.playerColor}\`}
+                      src={`/assets/images/pawns/pawn-${pawn.playerColor}.png`}
+                      alt={`Pion ${pawn.playerColor}`}
                       className="w-5 h-5 z-10"
                     />
                     <div
