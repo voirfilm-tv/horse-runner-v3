@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import GameBoard from './components/GameBoard/GameBoard';
 import CreateGame from './pages/CreateGame';
+import Admyn from './pages/Admyn';
+import Lobby from './pages/Lobby';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
         <Route path="/create" element={<CreateGame />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admyn" element={<Admyn />} />
+        <Route path="/Lobby" element={<Lobby />} />
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/game" element={isAuthenticated ? <GameBoard /> : <Navigate to="/login" />} />
       </Routes>
