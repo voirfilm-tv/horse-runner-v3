@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { useUserStore } from '../store/userStore';
 
 const Admyn = () => {
   const [pseudo, setPseudo] = useState('');
   const [coins, setCoins] = useState<number>(0);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-
+  const { fetchCoins } = useUserStore();
   const updateCoins = async () => {
     setSuccess('');
     setError('');
@@ -23,6 +24,7 @@ const Admyn = () => {
       setError("Aucun utilisateur trouvé avec ce pseudo.");
     } else {
       setSuccess("Coins mis à jour avec succès !");
+      await fetchCoins(); //
     }
   };
 
