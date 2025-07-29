@@ -30,6 +30,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admyn" element={<Admyn />} />
         <Route path="/Lobby" element={<Lobby />} />
+        <Route path="/lobby/:gameId" element={<Lobby />} />
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/game" element={isAuthenticated ? <GameBoard /> : <Navigate to="/login" />} />
       </Routes>
