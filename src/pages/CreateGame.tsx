@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useUserStore } from '../store/userStore';
+import { useUserStore } from '@/store/userStore';
+import { updateCoins } from '@/services/coins';
 
 const CreateGame = () => {
   const [mode, setMode] = useState<'realtime' | 'async'>('realtime');
