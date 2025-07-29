@@ -193,3 +193,28 @@ export async function logVictory(gameId: string, winnerId: string, players: any[
     console.error('[logVictory] Erreur insertion historique :', error.message);
   }
 }
+
+
+/**
+ * Permet à un joueur de rejoindre une partie privée via son ID.
+ * Vérifie que la partie existe et n’est pas terminée.
+ */
+export async function joinPrivateGame(gameId: string): Promise<void> {
+  const { data, error } = await supabase
+    .from('games')
+    .select('*')
+    .eq('id', gameId)
+    .single();
+
+  if (error || !data) {
+    throw new Error("Partie introuvable.");
+  }
+
+  if (data.status === 'ended') {
+    throw new Error("Cette partie est déjà terminée.");
+  }
+
+  // Optionnel : ici, tu pourrais vérifier s'il reste de la place ou enregistrer le joueur
+
+  return;
+}
