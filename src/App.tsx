@@ -8,6 +8,7 @@ import CreateGame from './pages/CreateGame';
 import Admyn from './pages/Admyn';
 import Lobby from './pages/Lobby';
 import { useEffect, useState } from 'react';
+import Game from './pages/Game';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/Lobby" element={<Lobby />} />
         <Route path="/lobby/:gameId" element={<Lobby />} />
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/game/:gameId" element={isAuthenticated ? <Game /> : <Navigate to="/login" />} />
         <Route path="/game" element={isAuthenticated ? <GameBoard /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
