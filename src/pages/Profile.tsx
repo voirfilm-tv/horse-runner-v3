@@ -1,7 +1,7 @@
 import { useUserStore } from '@/store/userStore';
 import { useNavigate } from 'react-router-dom';
 import { playSound } from '@/utils/sound';
-import { grantDailyBonus } from '@/services/coins';
+import { grantDailyBonus } from '@/utils/coins';
 
 export default function Profile() {
   const { pseudo, coins } = useUserStore();
