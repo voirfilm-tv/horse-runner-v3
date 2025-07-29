@@ -41,7 +41,7 @@ export default function GameBoard() {
             return (
               <div
                 key={key}
-                className={\`\${bg} w-full h-full relative flex items-center justify-center border border-green-800/20\`}
+                className={`${bg} w-full h-full relative flex items-center justify-center border border-green-800/20`}
               >
                 {cell === 'safe' && <span className="text-green-700 text-sm font-bold">🌿</span>}
                 {pawn && (
