@@ -1,7 +1,7 @@
 // src/pages/Game.tsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import supabase from "../services/database"; // adapte ce chemin à ton projet
+import { supabase } from "../services/database";  // adapte ce chemin à ton projet
 
 const Game = () => {
   const { gameId } = useParams();
