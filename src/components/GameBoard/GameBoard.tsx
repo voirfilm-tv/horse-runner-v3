@@ -5,8 +5,8 @@ import { boardLayout } from '@/utils/board';
 export default function GameBoard() {
   const { players } = useGameStore();
 
-  console.log("🎯 Players reçus dans GameBoard :", players);
   console.log("🌴 GameBoard JUNGLE utilisé !");
+  console.log("🎯 Players reçus dans GameBoard :", players);
 
   return (
     <div className="w-full flex justify-center items-center py-10 bg-gradient-to-br from-green-100 to-lime-200 rounded-xl shadow-inner border-4 border-green-400">
@@ -52,11 +52,11 @@ export default function GameBoard() {
                       className="w-5 h-5 z-10"
                     />
                     <div
-                      className={\`w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-md border-2 border-white
-                        \${pawn.playerColor === 'red' ? 'bg-red-600' :
+                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-md border-2 border-white
+                        ${pawn.playerColor === 'red' ? 'bg-red-600' :
                           pawn.playerColor === 'blue' ? 'bg-blue-600' :
                           pawn.playerColor === 'green' ? 'bg-green-600' :
-                          pawn.playerColor === 'yellow' ? 'bg-yellow-500' : ''}\`}
+                          pawn.playerColor === 'yellow' ? 'bg-yellow-500' : ''}`}
                       title={pawn.key}
                     />
                   </>
@@ -69,6 +69,3 @@ export default function GameBoard() {
     </div>
   );
 }
-
-console.log("🌴 GameBoard JUNGLE utilisé !");
-
