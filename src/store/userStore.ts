@@ -63,6 +63,21 @@ export const useUserStore = create<UserState>((set, get) => ({
       console.error('Erreur mise à jour coins :', error);
     }
   },
+  
+updateCoins: async () => {
+  const { userId } = get();
+  if (!userId) return;
+
+  const { data, error } = await supabase
+    .from('users')
+    .select('coins')
+    .eq('id', userId)
+    .single();
+
+  if (!error && data) {
+    set({ coins: data.coins });
+  }
+},
 
   resetUser: () => {
     localStorage.removeItem('userId');
