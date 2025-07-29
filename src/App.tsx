@@ -10,6 +10,13 @@ import Lobby from './pages/Lobby';
 import { useEffect, useState } from 'react';
 
 function App() {
+  useEffect(() => {
+    const fetchUserCoins = async () => {
+      await useUserStore.getState().fetchCoins();
+    };
+    fetchUserCoins();
+  }, []);
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
