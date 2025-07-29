@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { listPublicGames, autoJoinOrCreate } from '@/services/game';
-import { useNavigate } from 'react-router-dom';
+import { listPublicGames, joinPrivateGame } from '@/services/game';
+import { useNavigate, useParams } from 'react-router-dom';
 import { playSound } from '@/utils/sound';
 import CoinDisplay from '@/components/CoinDisplay/CoinDisplay';
-import { useUserStore } from '@/store/userStore';
 import { updateCoins } from '@/utils/coins';
 
 interface Game {
@@ -14,13 +13,33 @@ interface Game {
 }
 
 export default function Lobby() {
+  const { gameId } = useParams(); // récupère le paramètre d'URL (si présent)
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [matchmakingLoading, setMatchmakingLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-     updateCoins(); //
+    updateCoins(); // met à jour les coins
+
+    if (gameId) {
+      // Si un gameId est présent dans l'URL → tentative de rejoindre partie privée
+      async function joinPrivate() {
+        try {
+          await joinPrivateGame(gameId); // optionnel si tu veux valider côté backend
+          playSound('join');
+          navigate('/game/' + gameId); // redirige vers la partie
+        } catch (err: any) {
+          console.error('Erreur en rejoignant la partie privée :', err.message);
+          alert("Impossible de rejoindre cette partie.");
+          navigate('/lobby'); // revient au lobby classique
+        }
+      }
+      joinPrivate();
+      return;
+    }
+
+    // Sinon, chargement classique du lobby public
     async function fetchGames() {
       setLoading(true);
       const results = await listPublicGames();
@@ -28,20 +47,12 @@ export default function Lobby() {
       setLoading(false);
     }
     fetchGames();
-  }, []);
+  }, [gameId]);
 
-  const handleMatchmaking = async () => {
-    setMatchmakingLoading(true);
-    try {
-      const id = await autoJoinOrCreate();
-      playSound('join');
-      navigate('/game/' + id);
-    } catch (err: any) {
-      alert('Erreur : ' + err.message);
-    } finally {
-      setMatchmakingLoading(false);
-    }
-  };
+  if (gameId) {
+    // Si on est en train de traiter une partie privée, pas d'affichage UI
+    return <p className="p-6 text-center">Connexion à la partie privée...</p>;
+  }
 
   return (
     <>
@@ -54,7 +65,18 @@ export default function Lobby() {
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
             <button
-              onClick={handleMatchmaking}
+              onClick={async () => {
+                setMatchmakingLoading(true);
+                try {
+                  const id = await autoJoinOrCreate();
+                  playSound('join');
+                  navigate('/game/' + id);
+                } catch (err: any) {
+                  alert('Erreur : ' + err.message);
+                } finally {
+                  setMatchmakingLoading(false);
+                }
+              }}
               disabled={matchmakingLoading}
               className="px-5 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition"
             >
