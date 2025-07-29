@@ -15,11 +15,15 @@ module.exports = {
     "max-w-[600px]",
     "ring-lime-500",
     "bg-green-700",
+    "bg-emerald-200",
+    "bg-lime-50",
     "rounded-2xl",
     "shadow-2xl",
-    "bg-lime-50",
     "border-green-800",
-    "bg-emerald-200"
+    "border-green-800/20",
+    "text-green-700",
+    "text-sm",
+    "font-bold"
   ],
   plugins: [],
 }
