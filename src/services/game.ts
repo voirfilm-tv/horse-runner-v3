@@ -192,4 +192,9 @@ export async function logVictory(gameId: string, winnerId: string, players: any[
   if (error) {
     console.error('[logVictory] Erreur insertion historique :', error.message);
   }
+}import { useUserStore } from '@/store/userStore';
+
+// Appeler cette fonction à la fin d’une partie gagnée pour synchroniser les coins
+export async function syncCoinsAfterGame() {
+  await useUserStore.getState().fetchCoins();
 }
