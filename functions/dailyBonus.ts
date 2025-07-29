@@ -55,4 +55,4 @@ serve(async (req) => {
   return new Response(JSON.stringify({ success: true, coins: data.coins + 50 }), {
     status: 200,
   });
-});// Pensez à forcer un appel client à fetchCoins() après appel de cette fonction côté frontend.
+});
