@@ -3,6 +3,8 @@ import { listPublicGames, autoJoinOrCreate } from '@/services/game';
 import { useNavigate } from 'react-router-dom';
 import { playSound } from '@/utils/sound';
 import CoinDisplay from '@/components/CoinDisplay/CoinDisplay';
+import { useUserStore } from '@/store/userStore';
+import { updateCoins } from '@/services/coins';
 
 interface Game {
   id: string;
@@ -18,6 +20,7 @@ export default function Lobby() {
   const navigate = useNavigate();
 
   useEffect(() => {
+     updateCoins(); //
     async function fetchGames() {
       setLoading(true);
       const results = await listPublicGames();
