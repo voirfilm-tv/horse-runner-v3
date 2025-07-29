@@ -42,7 +42,18 @@ export default function Profile() {
             <img src="/assets/icons/setting.png" alt="Paramètres" className="w-4 h-4" />
             Paramètres
           </button>
-    
+          
+    <button>
+  onClick={async () => {
+    const updated = await updateCoins(coins + 500);
+    setCoins(updated);
+    alert('500 coins ajoutés');
+  }}
+  className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+>
+  💰 Ajouter 500 coins
+</button>
+
         </div>
       </div>
     </div>
