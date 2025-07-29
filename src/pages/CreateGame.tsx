@@ -52,7 +52,9 @@ const CreateGame = () => {
   useEffect(() => {
     if (!userId) {
       setError("Utilisateur non connecté.");
-    }
+    } else {
+    updateCoins(); // ✅ Refresh coins depuis Supabase
+  }
   }, [userId]);
 
   return (
