@@ -105,3 +105,20 @@ export async function listPublicGames() {
   return data;
 }
 
+/**
+ * Charge les joueurs d'une partie donnée
+ */
+export async function loadPlayers(gameId: string) {
+  const { data, error } = await supabase
+    .from('players')
+    .select('*')
+    .eq('game_id', gameId);
+
+  if (error || !data) {
+    console.error("❌ Erreur chargement joueurs :", error.message);
+    return [];
+  }
+
+  return data;
+}
+

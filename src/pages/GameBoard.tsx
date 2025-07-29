@@ -1,8 +1,11 @@
+
 import { useGameStore } from '@/store/gameStore';
 import { boardLayout } from '@/utils/board';
 
 export default function GameBoard() {
   const { players } = useGameStore();
+
+  console.log("🎯 Players reçus dans GameBoard :", players);
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-6">
@@ -24,7 +27,6 @@ export default function GameBoard() {
               cell === 'base-yellow' ? 'bg-yellow-100' :
               'bg-gray-100';
 
-            // Vérifie si un pion est sur cette case
             const pawn = players
               .flatMap((player, pIndex) =>
                 player.pawns.map((pos, pawnIndex) => ({
@@ -41,23 +43,23 @@ export default function GameBoard() {
                 className={`${bg} w-full h-full relative flex items-center justify-center`}
               >
                 {cell === 'safe' && <span className="text-yellow-600 text-sm font-bold">★</span>}
-                  {pawn && (
-                    <>
-                      <img
-                        src={`/assets/images/pawns/pawn-${pawn.playerColor}.png`}
-                        alt={`Pion ${pawn.playerColor}`}
-                        className="w-5 h-5 z-10"
-                      />
-                      <div
-                        className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-md border-2 border-white
-                          ${pawn.playerColor === 'red' ? 'bg-red-600' :
-                             pawn.playerColor === 'blue' ? 'bg-blue-600' :
-                             pawn.playerColor === 'green' ? 'bg-green-600' :
-                             pawn.playerColor === 'yellow' ? 'bg-yellow-500' : ''}`}
-                        title={pawn.key}
-                      />
-                    </>
-                  )}
+                {pawn && (
+                  <>
+                    <img
+                      src={`/assets/images/pawns/pawn-${pawn.playerColor}.png`}
+                      alt={`Pion ${pawn.playerColor}`}
+                      className="w-5 h-5 z-10"
+                    />
+                    <div
+                      className={\`w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-md border-2 border-white
+                        \${pawn.playerColor === 'red' ? 'bg-red-600' :
+                          pawn.playerColor === 'blue' ? 'bg-blue-600' :
+                          pawn.playerColor === 'green' ? 'bg-green-600' :
+                          pawn.playerColor === 'yellow' ? 'bg-yellow-500' : ''}\`}
+                      title={pawn.key}
+                    />
+                  </>
+                )}
               </div>
             );
           })
