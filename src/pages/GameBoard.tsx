@@ -6,6 +6,7 @@ export default function GameBoard() {
   const { players } = useGameStore();
 
   console.log("🎯 Players reçus dans GameBoard :", players);
+  console.log("🌴 GameBoard JUNGLE utilisé !");
 
   return (
     <div className="w-full flex justify-center items-center py-10 bg-gradient-to-br from-green-100 to-lime-200 rounded-xl shadow-inner border-4 border-green-400">
@@ -68,3 +69,6 @@ export default function GameBoard() {
     </div>
   );
 }
+
+console.log("🌴 GameBoard JUNGLE utilisé !");
+
