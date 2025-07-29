@@ -85,3 +85,23 @@ export async function joinPrivateGame(gameId: string): Promise<void> {
 
   return;
 }
+
+/**
+ * Liste les parties publiques disponibles
+ */
+export async function listPublicGames() {
+  const { data, error } = await supabase
+    .from('games')
+    .select('*')
+    .eq('is_private', false)
+    .eq('status', 'waiting') // ou ajuste selon ta logique
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    console.error("❌ Erreur récupération des parties publiques :", error.message);
+    return [];
+  }
+
+  return data;
+}
+
