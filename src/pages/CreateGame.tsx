@@ -18,7 +18,7 @@ const CreateGame = () => {
   const coins = useUserStore(state => state.coins);
   const navigate = useNavigate();
 
-  const totalCost = coin_bet + 40;
+  const totalCost = bet + 40;
 
   const handleCreate = async () => {
     if (!userId) {
@@ -35,7 +35,7 @@ const CreateGame = () => {
       const { data, error } = await supabase.from('games').insert([{
         host_id: userId,
         mode,
-        coin_bet,
+        bet,
         player_count: playerCount
       }]).select().single();
 
