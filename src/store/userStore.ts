@@ -1,5 +1,19 @@
 import { create } from 'zustand';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase';import { create } from 'zustand';
+
+interface UserStore {
+  pseudo: string;
+  coins: number;
+  setPseudo: (pseudo: string) => void;
+  setCoins: (coins: number) => void;
+}
+
+export const useUserStore = create<UserStore>((set) => ({
+  pseudo: '',
+  coins: 0,
+  setPseudo: (pseudo) => set({ pseudo }),
+  setCoins: (coins) => set({ coins }),
+}));
 
 type UserState = {
   userId: string | null;
