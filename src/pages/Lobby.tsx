@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { playSound } from '@/utils/sound';
 import CoinDisplay from '@/components/CoinDisplay/CoinDisplay';
 import { useUserStore } from '@/store/userStore';
-import { updateCoins } from '@/services/coins';
+import { updateCoins } from '@/utils/coins';
 
 interface Game {
   id: string;
